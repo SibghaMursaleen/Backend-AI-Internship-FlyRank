@@ -29,6 +29,7 @@ The repository is organized by weekly directories containing tasks and documenta
 | **Week 1** | **Assignment 1** | [Minimal Python Backend](week%201/Minimal%20Python%20backed%20-%20Assignement%201/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Minimal%20Python%20backed%20-%20Assignement%201)) | Lightweight FastAPI web server with health and status endpoints. | ✅ Completed |
 | **Week 1** | **Assignment 2** | [Workflow Audit](week%201/Workflow%20Audit%20-%20Assignment%202/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Workflow%20Audit%20-%20Assignment%202)) | Mapping tasks to AI automation potential and setting success criteria. | ✅ Completed |
 | **Week 1** | **Assignment 3** | [Draw the Path](week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203)) | Portfolio sitemap design, core branding values, and project toolkit configuration. | ✅ Completed |
+| **Week 1** | **Assignment 4** | [What Are You Proving](week%201/What%20are%20you%20Proving%20-%20Assinment%204/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/What%20are%20you%20Proving%20-%20Assinment%204)) | Professional portfolio proof statement and branding thesis. | ✅ Completed |
 
 ---
 
@@ -40,7 +41,8 @@ Backend-AI-Internship-FlyRank/
 ├── week 1/
 │   ├── Minimal Python backed - Assignement 1/     # FastAPI backend server
 │   ├── Workflow Audit - Assignment 2/            # Task audit and documentation
-│   └── Draw the Path - Portfolio Sitemap + Toolkit - Assinment 3/ # Portfolio planning and setup
+│   ├── Draw the Path - Portfolio Sitemap + Toolkit - Assinment 3/ # Portfolio planning and setup
+│   └── What are you Proving - Assinment 4/        # Portfolio proof statement and branding thesis
 │
 └── .gitignore                                   # Git ignore configuration
 ```
@@ -53,6 +55,7 @@ To browse or run the projects locally, follow the instructions in each assignmen
 1. [Minimal Python Backend](week%201/Minimal%20Python%20backed%20-%20Assignement%201/README.md) — Follow steps to run the FastAPI server.
 2. [Workflow Audit](week%201/Workflow%20Audit%20-%20Assignment%202/README.md) — View the workflow audit document and screenshots.
 3. [Draw the Path](week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203/README.md) — View the portfolio sitemap and toolkit configuration.
+4. [What Are You Proving](week%201/What%20are%20you%20Proving%20-%20Assinment%204/README.md) — View the portfolio proof statement and branding thesis.
 
 ---
 
