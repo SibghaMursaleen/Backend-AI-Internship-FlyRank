@@ -47,7 +47,7 @@ Workflow Audit - Assignment 2/
 ├── Assignment 2.docx               # Completed assignment word document
 ├── Assignment 2.pdf                # Completed assignment PDF document
 ├── claude_project_screenshot.png   # Evidence: Claude project setup
-├── tool_accounts_evidence.png      # Evidence: Anthropic Academy / Tool accounts
+├── tool_accounts_evidence.png      # Instruction reference image from template
 └── README.md                       # Assignment documentation
 ```
 
@@ -92,8 +92,8 @@ Verification of the custom Claude Project configured with instructions detailing
 
 ![Claude Project Screenshot](claude_project_screenshot.png)
 
-### Tools & Academy Enrollment
-Evidence of Anthropic Academy account registration and course enrollment for "AI Fluency: Framework & Foundations".
+### Instruction Reference
+Example guidelines provided in the assignment template for setting up tools and enrolling in the Anthropic Academy course "AI Fluency: Framework & Foundations".
 
 ![Tools & Academy Enrollment Screenshot](tool_accounts_evidence.png)
 
