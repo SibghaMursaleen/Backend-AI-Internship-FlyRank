@@ -10,3 +10,7 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Secrets/Env files
+.env
+
