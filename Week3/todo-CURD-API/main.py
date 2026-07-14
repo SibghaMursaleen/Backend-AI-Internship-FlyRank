@@ -114,6 +114,20 @@ def update_task(
         )
     return updated_task
 
+@app.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_task(
+    task_id: int,
+    repo: TaskRepository = Depends(get_repository)
+):
+    success = repo.delete(task_id)
+    if not success:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content={"error": f"Task {task_id} not found"}
+        )
+    return
+
+
 
 
 
