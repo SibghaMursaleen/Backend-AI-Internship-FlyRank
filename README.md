@@ -20,19 +20,10 @@ This repository contains the weekly assignments and implementations completed du
 
 ---
 
-## ⚙️ How It Works
+## ⚙️ Weekly Summary
 
-The repository is organized by weekly directories containing tasks and documentation:
-
-| Week | Assignment | Topic | Description | Status |
-|:---:|---|---|---|:---:|
-| **Week 1** | **Assignment 1** | [Minimal Python Backend](week%201/Minimal%20Python%20backed%20-%20Assignement%201/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Minimal%20Python%20backed%20-%20Assignement%201)) | Lightweight FastAPI web server with health and status endpoints. | ✅ Completed |
-| **Week 1** | **Assignment 2** | [Workflow Audit](week%201/Workflow%20Audit%20-%20Assignment%202/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Workflow%20Audit%20-%20Assignment%202)) | Mapping tasks to AI automation potential and setting success criteria. | ✅ Completed |
-| **Week 1** | **Assignment 3** | [Draw the Path](week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203)) | Portfolio sitemap design, core branding values, and project toolkit configuration. | ✅ Completed |
-| **Week 1** | **Assignment 4** | [What Are You Proving](week%201/What%20are%20you%20Proving%20-%20Assinment%204/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%201/What%20are%20you%20Proving%20-%20Assinment%204)) | Professional portfolio proof statement and branding thesis. | ✅ Completed |
-| **Week 2** | **Assignment 1** | [Frame It as Cases](week%202/Frame%20It%20as%20Cases%20-%20Assignment%201/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%202/Frame%20It%20as%20Cases%20-%20Assignment%201)) | Professional bio and project case studies describing design decisions. | ✅ Completed |
-| **Week 2** | **Assignment 2** | [The Prompt Ladder](week%202/The%20Prompt%20Ladder%20-%20Assignment%202/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%202/The%20Prompt%20Ladder%20-%20Assignment%202)) | Systematic prompt engineering framework for AI landing page generation. | ✅ Completed |
-| **Week 2** | **Assignment 3** | [Prompting Fundamentals](week%202/Prompting%20Fundamentals%20on%20Real%20Tasks%20-%20Assignment%203/README.md) (Local: [link](file:///c:/Users/sibgh/OneDrive/Desktop/FlyRank%20AI%20Internship/week%202/Prompting%20Fundamentals%20on%20Real%20Tasks%20-%20Assignment%203)) | Iterative prompting fundamentals on car showroom site and model analysis. | ✅ Completed |
+* **Week 1 (Foundations & Audits):** Focused on core backend foundations, sitemap/toolkit configuration, workflow audits mapping tasks to AI automation potential, and branding thesis.
+* **Week 2 (Fluency & REST APIs):** Focused on professional case studies, systematic prompt engineering frameworks, and building a complete, validated FastAPI-based **Task CRUD API**.
 
 ---
 
@@ -50,7 +41,8 @@ Backend-AI-Internship-FlyRank/
 ├── week 2/
 │   ├── Frame It as Cases - Assignment 1/         # Case studies write-up
 │   ├── The Prompt Ladder - Assignment 2/          # Prompt layering study
-│   └── Prompting Fundamentals on Real Tasks - Assignment 3/ # Car showroom prompt engineering & LLM analysis
+│   ├── Prompting Fundamentals on Real Tasks - Assignment 3/ # Car showroom prompt engineering & LLM analysis
+│   └── TODO-CRUD-API-Task/                        # Task CRUD API with FastAPI & Swagger UI
 │
 └── .gitignore                                   # Git ignore configuration
 ```
@@ -60,13 +52,18 @@ Backend-AI-Internship-FlyRank/
 ## 🚀 Getting Started
 
 To browse or run the projects locally, follow the instructions in each assignment's subdirectory:
-1. [Minimal Python Backend](week%201/Minimal%20Python%20backed%20-%20Assignement%201/README.md) — Follow steps to run the FastAPI server.
-2. [Workflow Audit](week%201/Workflow%20Audit%20-%20Assignment%202/README.md) — View the workflow audit document and screenshots.
-3. [Draw the Path](week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203/README.md) — View the portfolio sitemap and toolkit configuration.
-4. [What Are You Proving](week%201/What%20are%20you%20Proving%20-%20Assinment%204/README.md) — View the portfolio proof statement and branding thesis.
-5. [Frame It as Cases](week%202/Frame%20It%20as%20Cases%20-%20Assignment%201/README.md) — View the case studies write-up.
-6. [The Prompt Ladder](week%202/The%20Prompt%20Ladder%20-%20Assignment%202/README.md) — View the prompt layering study.
-7. [Prompting Fundamentals](week%202/Prompting%20Fundamentals%20on%20Real%20Tasks%20-%20Assignment%203/README.md) — View the showroom prompt engineering and LLM comparison.
+
+### Week 1
+1. [Minimal Python Backend](week%201/Minimal%20Python%20backed%20-%20Assignement%201/README.md)
+2. [Workflow Audit](week%201/Workflow%20Audit%20-%20Assignment%202/README.md)
+3. [Draw the Path](week%201/Draw%20the%20Path%20-%20Portfolio%20Sitemap%20+%20Toolkit%20-%20Assinment%203/README.md)
+4. [What Are You Proving](week%201/What%20are%20you%20Proving%20-%20Assinment%204/README.md)
+
+### Week 2
+1. [Frame It as Cases](week%202/Frame%20It%20as%20Cases%20-%20Assignment%201/README.md)
+2. [The Prompt Ladder](week%202/The%20Prompt%20Ladder%20-%20Assignment%202/README.md)
+3. [Prompting Fundamentals](week%202/Prompting%20Fundamentals%20on%20Real%20Tasks%20-%20Assignment%203/README.md)
+4. [TODO CRUD API Task](week%202/TODO-CRUD-API-Task/README.md)
 
 ---
 
