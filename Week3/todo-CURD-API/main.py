@@ -7,7 +7,7 @@ from app.repositories.base import TaskRepository
 from app.repositories.in_memory import InMemoryTaskRepository
 from app.config import REPOSITORY_TYPE
 
-app = FastAPI(title="Task API", version="1.0")
+app = FastAPI(title="Task API", version="1.0", description="Task CRUD API made by Sibgha Mursaleen")
 
 # Custom exception handler to return 400 Bad Request with JSON error on validation failure
 @app.exception_handler(RequestValidationError)
@@ -47,6 +47,7 @@ def read_root():
     return {
         "name": "Task API",
         "version": "1.0",
+        "made_by": "Sibgha Mursaleen",
         "endpoints": ["/tasks"]
     }
 
