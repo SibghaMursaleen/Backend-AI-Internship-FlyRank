@@ -34,7 +34,7 @@ This project is a high-performance **Todo CRUD API** built using **FastAPI** and
 ### 📁 Project Structure
 
 ```
-TODO-CRUD-API/
+TODO-CRUD-API-Task/
 │
 ├── app/
 │   ├── models/
