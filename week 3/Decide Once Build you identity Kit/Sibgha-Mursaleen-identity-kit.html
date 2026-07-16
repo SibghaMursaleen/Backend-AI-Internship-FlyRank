@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sibgha — Identity Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2A4A;
+    --charcoal:#14161A;
+    --offwhite:#FAFAFA;
+    --amber:#E8A33D;
+    --line:#E4E1DA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--offwhite);
+    color:var(--charcoal);
+    font-family:'Inter',sans-serif;
+    padding:64px 24px 96px;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--navy);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:40px;
+    letter-spacing:-0.01em;
+    margin-bottom:10px;
+  }
+  .role-line{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--navy);
+    letter-spacing:.02em;
+    margin-bottom:48px;
+  }
+  section{margin-bottom:56px;}
+  h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#6B6F76;
+    font-weight:500;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+  }
+
+  /* Typography */
+  .type-block{margin-bottom:28px;}
+  .type-label{font-size:12px;color:#6B6F76;margin-bottom:6px;}
+  .heading-sample{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:34px;
+    letter-spacing:-0.01em;
+  }
+  .heading-sub{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:500;
+    font-size:20px;
+    color:var(--navy);
+    margin-top:6px;
+  }
+  .body-sample{
+    font-size:16px;
+    line-height:1.6;
+    max-width:560px;
+    color:var(--charcoal);
+  }
+
+  /* Colors */
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+  }
+  .swatch{
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .swatch-color{height:88px;}
+  .swatch-meta{
+    background:#fff;
+    padding:10px 12px;
+  }
+  .swatch-role{font-size:12px;font-weight:600;}
+  .swatch-hex{font-size:12px;color:#6B6F76;font-family:'Space Grotesk',monospace;margin-top:2px;}
+
+  /* Logo */
+  .logo-row{
+    display:flex;
+    align-items:center;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .logo-card{
+    background:var(--navy);
+    border-radius:16px;
+    width:120px;height:120px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-mark{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:44px;
+    color:var(--offwhite);
+  }
+  .logo-mark span{color:var(--amber);}
+  .favicon-card{
+    background:var(--navy);
+    border-radius:7px;
+    width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .favicon-mark{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--offwhite);
+  }
+  .favicon-mark span{color:var(--amber);}
+  .favicon-label{font-size:12px;color:#6B6F76;margin-top:8px;}
+  .favicon-col{display:flex;flex-direction:column;align-items:center;}
+
+  /* Style note */
+  .note{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:3px solid var(--amber);
+    border-radius:4px;
+    padding:20px 24px;
+    font-size:15px;
+    line-height:1.7;
+    max-width:640px;
+  }
+  .note strong{color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Visual Foundation</div>
+  <h1>Sibgha — Identity Kit</h1>
+  <div class="role-line">Backend AI Engineer</div>
+
+  <section>
+    <h2>Typography</h2>
+    <div class="type-block">
+      <div class="type-label">Headings — Space Grotesk, 700</div>
+      <div class="heading-sample">Building Reliable Systems</div>
+      <div class="heading-sub">Space Grotesk, 500</div>
+    </div>
+    <div class="type-block">
+      <div class="type-label">Body — Inter, 400</div>
+      <p class="body-sample">I develop backend APIs and AI solutions that transform complex problems into reliable, production-ready systems.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Color Palette</h2>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1B2A4A;"></div>
+        <div class="swatch-meta">
+          <div class="swatch-role">Primary</div>
+          <div class="swatch-hex">#1B2A4A</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#14161A;"></div>
+        <div class="swatch-meta">
+          <div class="swatch-role">Text</div>
+          <div class="swatch-hex">#14161A</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FAFAFA;"></div>
+        <div class="swatch-meta">
+          <div class="swatch-role">Background</div>
+          <div class="swatch-hex">#FAFAFA</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E8A33D;"></div>
+        <div class="swatch-meta">
+          <div class="swatch-role">Accent</div>
+          <div class="swatch-hex">#E8A33D</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Logo / Favicon</h2>
+    <div class="logo-row">
+      <div class="logo-card">
+        <div class="logo-mark"><span>{</span>S<span>}</span></div>
+      </div>
+      <div class="favicon-col">
+        <div class="favicon-card">
+          <div class="favicon-mark"><span>{</span>S<span>}</span></div>
+        </div>
+        <div class="favicon-label">Favicon, 32×32</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Style Note</h2>
+    <div class="note">
+      Headings in <strong>Space Grotesk</strong>, body in <strong>Inter</strong>. Palette: navy <strong>#1B2A4A</strong>, charcoal <strong>#14161A</strong>, off-white <strong>#FAFAFA</strong>, amber <strong>#E8A33D</strong>.<br>
+      A calm, technical foundation with one confident accent — built to make a new product look ready on day one.
+    </div>
+  </section>
+</div>
+</body>
+</html>
