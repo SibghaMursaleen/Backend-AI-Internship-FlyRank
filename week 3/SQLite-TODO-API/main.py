@@ -5,14 +5,13 @@ from typing import List, Optional
 from app.models.task import TaskResponse, TaskCreate, TaskUpdate
 from app.repositories.base import TaskRepository
 from app.repositories.in_memory import InMemoryTaskRepository
-from app.repositories.postgres import PostgresTaskRepository
-from app.config import REPOSITORY_TYPE, DATABASE_URL, REDIS_HOST, REDIS_PORT
-import redis
+from app.repositories.sqlite import SQLiteTaskRepository
+from app.config import REPOSITORY_TYPE, SQLITE_DB_PATH
 
 app = FastAPI(
-    title="Dockerized Postgres & Redis Task API",
+    title="Persistent Task Management API",
     version="1.0",
-    description="An advanced, containerized RESTful API integrating PostgreSQL persistence and Redis caching telemetry. Orchestrated with Docker Compose. Developed by Sibgha Mursaleen during the FlyRank AI Internship."
+    description="A professional, SQLite-backed RESTful API for structured task management, tracking, and verification. Developed by Sibgha Mursaleen during the FlyRank AI Internship."
 )
 
 # Custom exception handler to return 400 Bad Request with JSON error on validation failure
@@ -35,13 +34,11 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={"error": error_msg}
     )
 
-# Instantiate repository as a singleton to persist state
+# Instantiate repository as a singleton to persist in-memory state
 repository_instance: TaskRepository
 
-if REPOSITORY_TYPE == "postgres":
-    if not DATABASE_URL:
-        raise ValueError("DATABASE_URL must be set when REPOSITORY_TYPE is 'postgres'")
-    repository_instance = PostgresTaskRepository(DATABASE_URL)
+if REPOSITORY_TYPE == "sqlite":
+    repository_instance = SQLiteTaskRepository(database_path=SQLITE_DB_PATH)
 else:
     repository_instance = InMemoryTaskRepository()
 
@@ -63,26 +60,6 @@ def read_health():
         "status": "ok"
     }
 
-@app.get("/redis-ping")
-def ping_redis():
-    try:
-        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, socket_connect_timeout=2)
-        if r.ping():
-            return {
-                "redis_status": "connected",
-                "message": "PONG"
-            }
-        else:
-            return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                content={"redis_status": "disconnected", "error": "Redis ping failed"}
-            )
-    except Exception as e:
-        return JSONResponse(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={"redis_status": "disconnected", "error": str(e)}
-        )
-
 @app.get("/tasks", response_model=List[TaskResponse])
 def get_tasks(
     done: Optional[bool] = None,
@@ -100,7 +77,7 @@ def get_task(
     if not task:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
-            content={"error": f"Task {task_id} not found"}
+            content={"error": "Task not found"}
         )
     return task
 
@@ -137,7 +114,7 @@ def update_task(
     if not updated_task:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
-            content={"error": f"Task {task_id} not found"}
+            content={"error": "Task not found"}
         )
     return updated_task
 
@@ -150,7 +127,7 @@ def delete_task(
     if not success:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
-            content={"error": f"Task {task_id} not found"}
+            content={"error": "Task not found"}
         )
     return
 

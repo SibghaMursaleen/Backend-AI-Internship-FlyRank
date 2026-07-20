@@ -24,6 +24,7 @@ This repository contains the weekly assignments and implementations completed du
 
 * **Week 1 (Foundations & Audits):** Focused on core backend foundations, sitemap/toolkit configuration, workflow audits mapping tasks to AI automation potential, and branding thesis.
 * **Week 2 (Fluency & REST APIs):** Focused on professional case studies, systematic prompt engineering frameworks, and building a complete, validated FastAPI-based **Task CRUD API**.
+* **Week 3 (Database Persistence & Containers):** Focused on persisting Task APIs with local **SQLite** databases, containerizing environments with **Docker Compose**, and integrating **PostgreSQL** and **Redis** cache clusters.
 
 ---
 
@@ -43,6 +44,13 @@ Backend-AI-Internship-FlyRank/
 │   ├── The Prompt Ladder - Assignment 2/          # Prompt layering study
 │   ├── Prompting Fundamentals on Real Tasks - Assignment 3/ # Car showroom prompt engineering & LLM analysis
 │   └── TODO-CRUD-API-Task/                        # Task CRUD API with FastAPI & Swagger UI
+│
+├── week 3/
+│   ├── Curate Your Images/                        # Portfolio media assets curation
+│   ├── Decide Once Build you identity Kit/        # Personal branding identity page
+│   ├── SQLite-TODO-API/                           # Task CRUD API persistent with SQLite & sqlite3
+│   ├── Postgres-Docker-TODO-API/                  # Advanced Dockerized Task API with Postgres & Redis
+│   └── The Through-Line Map Content & CTAs/        # Portfolio layout map and content planner
 │
 └── .gitignore                                   # Git ignore configuration
 ```
@@ -64,6 +72,10 @@ To browse or run the projects locally, follow the instructions in each assignmen
 2. [The Prompt Ladder](week%202/The%20Prompt%20Ladder%20-%20Assignment%202/README.md)
 3. [Prompting Fundamentals](week%202/Prompting%20Fundamentals%20on%20Real%20Tasks%20-%20Assignment%203/README.md)
 4. [TODO CRUD API Task](week%202/TODO-CRUD-API-Task/README.md)
+
+### Week 3
+1. [SQLite Todo API](week%203/SQLite-TODO-API/README.md)
+2. [Postgres Docker Todo API](week%203/Postgres-Docker-TODO-API/README.md)
 
 ---
 
