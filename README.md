@@ -25,6 +25,7 @@ This repository contains the weekly assignments and implementations completed du
 * **Week 1 (Foundations & Audits):** Focused on core backend foundations, sitemap/toolkit configuration, workflow audits mapping tasks to AI automation potential, and branding thesis.
 * **Week 2 (Fluency & REST APIs):** Focused on professional case studies, systematic prompt engineering frameworks, and building a complete, validated FastAPI-based **Task CRUD API**.
 * **Week 3 (Database Persistence & Containers):** Focused on persisting Task APIs with local **SQLite** databases, containerizing environments with **Docker Compose**, and integrating **PostgreSQL** and **Redis** cache clusters.
+* **Week 4 (Unification & Authentication):** Focused on building a unified backend project supporting In-Memory, SQLite, and PostgreSQL database storage layers with Docker containerization. Layering user authentication via Supabase Auth.
 
 ---
 
@@ -52,6 +53,12 @@ Backend-AI-Internship-FlyRank/
 │   ├── Postgres-Docker-TODO-API/                  # Advanced Dockerized Task API with Postgres & Redis
 │   └── The Through-Line Map Content & CTAs/        # Portfolio layout map and content planner
 │
+├── week 4/
+│   ├── Agent Concepts and MCP Basics/              # Agent concepts explainer and MCP basics study
+│   ├── Ship an Automation Workflow v2/             # Automated AI research digest pipeline
+│   ├── Technology Stack & Empty But Live/          # Tech stack evaluations and empty but live app
+│   └── Unified-Auth-Todo-API/                      # Unified SQLite, Postgres, Redis & Auth CRUD API
+│
 └── .gitignore                                   # Git ignore configuration
 ```
 
@@ -76,6 +83,9 @@ To browse or run the projects locally, follow the instructions in each assignmen
 ### Week 3
 1. [SQLite Todo API](week%203/SQLite-TODO-API/README.md)
 2. [Postgres Docker Todo API](week%203/Postgres-Docker-TODO-API/README.md)
+
+### Week 4
+1. [Unified Todo API](week%204/Unified-Auth-Todo-API/README.md)
 
 ---
 
