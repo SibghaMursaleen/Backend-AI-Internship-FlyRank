@@ -265,8 +265,24 @@ def protected_profile(request: Request):
         )
     
     token = parts[1]
-    return {
-        "message": "Token received but not verified yet",
-        "token": token
-    }
+    if not supabase_client:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"error": "Supabase client not initialized"}
+        )
+    
+    try:
+        user_response = supabase_client.auth.get_user(token)
+        user = user_response.user
+        return {
+            "id": user.id,
+            "email": user.email,
+            "created_at": user.created_at
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"error": "Invalid or expired token"}
+        )
+
 
