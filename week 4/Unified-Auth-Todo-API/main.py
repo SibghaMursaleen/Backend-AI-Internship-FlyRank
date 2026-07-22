@@ -15,6 +15,12 @@ supabase_client: Client = None
 if SUPABASE_URL and SUPABASE_KEY and SUPABASE_URL != "your_supabase_url":
     supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+from pydantic import BaseModel
+
+class AuthRequest(BaseModel):
+    email: str
+    password: str
+
 @app.on_event("startup")
 def startup_event():
     print("Server running and connected to Supabase")
@@ -166,6 +172,78 @@ def delete_task(
             content={"error": f"Task {task_id} not found"}
         )
     return
+
+@app.post("/auth/signup", status_code=status.HTTP_201_CREATED)
+def signup(auth_data: AuthRequest):
+    if not auth_data.email or not auth_data.password:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": "Email and password are required and cannot be empty"}
+        )
+    if not auth_data.email.strip() or not auth_data.password.strip():
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": "Email and password are required and cannot be empty"}
+        )
+    
+    if not supabase_client:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"error": "Supabase client not initialized"}
+        )
+    
+    try:
+        response = supabase_client.auth.sign_up({
+            "email": auth_data.email,
+            "password": auth_data.password
+        })
+        if not response.user:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content={"error": "Signup failed"}
+            )
+        return response.user
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": str(e)}
+        )
+
+@app.post("/auth/login")
+def login(auth_data: AuthRequest):
+    if not auth_data.email or not auth_data.password:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": "Email and password are required and cannot be empty"}
+        )
+    if not auth_data.email.strip() or not auth_data.password.strip():
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": "Email and password are required and cannot be empty"}
+        )
+    
+    if not supabase_client:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"error": "Supabase client not initialized"}
+        )
+    
+    try:
+        response = supabase_client.auth.sign_in_with_password({
+            "email": auth_data.email,
+            "password": auth_data.password
+        })
+        return {
+            "access_token": response.session.access_token,
+            "refresh_token": response.session.refresh_token,
+            "user": response.user
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"error": "Invalid login credentials"}
+        )
+
 
 
 
