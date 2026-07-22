@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Depends, status, Request
+from fastapi import FastAPI, Depends, status, Request, Response, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
 from typing import List, Optional
 from app.models.task import TaskResponse, TaskCreate, TaskUpdate
 from app.repositories.base import TaskRepository
@@ -52,6 +54,14 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={"error": error_msg}
     )
 
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": exc.detail}
+    )
+
+
 # Instantiate repository as a singleton to persist state
 repository_instance: TaskRepository
 
@@ -66,6 +76,34 @@ else:
 
 def get_repository() -> TaskRepository:
     return repository_instance
+
+security = HTTPBearer(auto_error=False)
+
+def get_current_user(request: Request, credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> dict:
+    if not credentials:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Access token required"
+        )
+    
+    token = credentials.credentials
+    if not supabase_client:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Supabase client not initialized"
+        )
+    
+    try:
+        user_response = supabase_client.auth.get_user(token)
+        return {
+            "user": user_response.user,
+            "token": token
+        }
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token"
+        )
 
 @app.get("/")
 def read_root():
@@ -249,22 +287,23 @@ def public_info():
     return { "message": "Welcome stranger! This info is public." }
 
 @app.get("/protected/profile")
-def protected_profile(request: Request):
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
-        return JSONResponse(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            content={"error": "Access token required"}
-        )
-    
-    parts = auth_header.split()
-    if len(parts) != 2 or parts[0].lower() != "bearer":
-        return JSONResponse(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            content={"error": "Access token required"}
-        )
-    
-    token = parts[1]
+def protected_profile(current_user: dict = Depends(get_current_user)):
+    user = current_user["user"]
+    return {
+        "id": user.id,
+        "email": user.email,
+        "created_at": user.created_at
+    }
+
+@app.get("/protected/dashboard")
+def protected_dashboard(current_user: dict = Depends(get_current_user)):
+    return {
+        "message": "Welcome to the protected dashboard!",
+        "user_id": current_user["user"].id
+    }
+
+@app.post("/auth/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(current_user: dict = Depends(get_current_user)):
     if not supabase_client:
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -272,17 +311,12 @@ def protected_profile(request: Request):
         )
     
     try:
-        user_response = supabase_client.auth.get_user(token)
-        user = user_response.user
-        return {
-            "id": user.id,
-            "email": user.email,
-            "created_at": user.created_at
-        }
-    except Exception as e:
-        return JSONResponse(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            content={"error": "Invalid or expired token"}
-        )
+        supabase_client.auth.set_session(current_user["token"], refresh_token="")
+        supabase_client.auth.sign_out()
+    except Exception:
+        pass
+    
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
 
 
