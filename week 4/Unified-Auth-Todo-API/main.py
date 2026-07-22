@@ -23,16 +23,16 @@ class AuthRequest(BaseModel):
     email: str
     password: str
 
-@app.on_event("startup")
-def startup_event():
-    print("Server running and connected to Supabase")
-
-
 app = FastAPI(
     title="Unified Task Management API",
     version="1.0",
     description="A unified RESTful Todo API supporting In-Memory, SQLite, and PostgreSQL database backends, complete with Redis caching. Developed by Sibgha Mursaleen during the FlyRank AI Internship."
 )
+
+@app.on_event("startup")
+def startup_event():
+    print("Server running and connected to Supabase")
+
 
 # Custom exception handler to return 400 Bad Request with JSON error on validation failure
 @app.exception_handler(RequestValidationError)
