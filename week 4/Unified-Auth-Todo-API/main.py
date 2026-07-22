@@ -244,8 +244,29 @@ def login(auth_data: AuthRequest):
             content={"error": "Invalid login credentials"}
         )
 
+@app.get("/public/info")
+def public_info():
+    return { "message": "Welcome stranger! This info is public." }
 
-
-
-
+@app.get("/protected/profile")
+def protected_profile(request: Request):
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"error": "Access token required"}
+        )
+    
+    parts = auth_header.split()
+    if len(parts) != 2 or parts[0].lower() != "bearer":
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"error": "Access token required"}
+        )
+    
+    token = parts[1]
+    return {
+        "message": "Token received but not verified yet",
+        "token": token
+    }
 
