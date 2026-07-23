@@ -87,6 +87,14 @@ def get_current_user(request: Request, credentials: Optional[HTTPAuthorizationCr
         )
     
     token = credentials.credentials
+    if token:
+        # Strip surrounding quotes if copied from a JSON response
+        if (token.startswith('"') and token.endswith('"')) or (token.startswith("'") and token.endswith("'")):
+            token = token[1:-1]
+        # Strip redundant Bearer prefix if typed manually in Swagger UI
+        if token.lower().startswith("bearer "):
+            token = token[7:].strip()
+            
     if not supabase_client:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -99,7 +107,8 @@ def get_current_user(request: Request, credentials: Optional[HTTPAuthorizationCr
             "user": user_response.user,
             "token": token
         }
-    except Exception:
+    except Exception as e:
+        print(f"DEBUG AUTH ERROR: {e}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token"

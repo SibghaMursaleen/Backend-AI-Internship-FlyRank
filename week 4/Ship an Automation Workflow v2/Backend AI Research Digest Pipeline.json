@@ -1,0 +1,308 @@
+{
+  "name": "Backend AI Research Digest Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        -240
+      ],
+      "id": "80da5216-c231-4871-a70d-6518033fce53",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7f89b1b8-17e2-4601-be04-2a859430aa69",
+              "name": "article",
+              "value": "Read the article and create a structured study report. Explain the Model Context Protocol (MCP), its architecture, server capabilities, communication model, major features, and practical use cases.",
+              "type": "string"
+            },
+            {
+              "id": "4fb119bf-d393-4bc8-8f1f-a3d89329f076",
+              "name": "articleURL",
+              "value": "https://modelcontextprotocol.io/introduction",
+              "type": "string"
+            },
+            {
+              "id": "f58d37dc-bad5-4040-9731-6f236101fab3",
+              "name": "approvedSummary",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -848,
+        -240
+      ],
+      "id": "9f8f84dd-a723-4c26-b93c-c678172f80cf",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI study assistant.\n\nAnalyze the article below and create structured study notes.\n\nSource URL:\n{{ $json.articleURL }}\n\nArticle:\n{{ $json.article }}\n\nReturn the following sections:\n\n## Source\nWrite the URL.\n\n## Main Topic\n\n## Key Concepts\n\n## Important Technical Details\n\n## Practical Takeaways\n\n## Confidence\n(High, Medium, or Low)",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -656,
+        -240
+      ],
+      "id": "12ab0314-73c1-4685-a1c1-60ca27c23b98",
+      "name": "Stage 1 - Summarize"
+    },
+    {
+      "parameters": {
+        "resume": "form",
+        "formTitle": "Human Review Required",
+        "formDescription": "Review the AI-generated summary. If it is accurate and complete, approve it. If necessary, edit the summary before submitting.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "approved_summary",
+              "fieldType": "textarea",
+              "placeholder": "Paste or edit the AI-generated summary here.",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "decision",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Approved"
+                  },
+                  {
+                    "option": "Reject"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "reviewer_comments",
+              "fieldType": "textarea",
+              "placeholder": "Enter any comments or corrections."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -352,
+        -288
+      ],
+      "id": "47a45cde-ed44-4253-a26c-101684f40553",
+      "name": "Wait - Human in Loop",
+      "webhookId": "371ec73d-1871-4e7b-a51d-92faca9b5439"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI study assistant.\n\nThe following summary has been reviewed and approved by a human reviewer.\n\nApproved Summary:\n{{ $('Stage 2 - Review').item.json.approved_summary}}\n\nReview Results:\n{{ $json.text }}\n\nSource URL:\n{{ $('Edit Fields').item.json.articleURL }}\n\nCreate a professional study report.\n\nInclude exactly these sections:\n\n# Source\n\n# Executive Summary\n\n# Key Concepts\n\n# Technical Details\n\n# Practical Takeaways\n\n# Human Review Outcome\n\n# Confidence\n\nRequirements:\n- Use only the approved summary and review results.\n- Do not invent new information.\n- Produce clean Markdown formatting.\n- If the review decision was \"Reject\", clearly state that the report should not be used until corrections are made.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        112,
+        -240
+      ],
+      "id": "182df00f-b4fb-4a49-adbf-6c244174b940",
+      "name": "Stage 3 - Final Report"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are reviewing a summary that has already been edited and approved by a human.\n\nApproved Summary:\n{{ $json.approved_summary }}\n\nDecision:\n{{ $json.decision }}\n\nReviewer Comments:\n{{ $json.reviewer_comments }}\n\nInstructions:\n\n- If the decision is \"Reject\", explain why the summary should not be used and recommend improvements.\n\n- If the decision is \"Approve\", verify that the summary is clear, technically accurate, and well structured.\n\nReturn your response in this format:\n\n## Review Status\n\n## Strengths\n\n## Remaining Issues\n\n## Final Recommendation\n\nKeep the review concise and do not invent information that is not present in the approved summary.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -288,
+        -64
+      ],
+      "id": "8dea9520-f043-4953-939d-196f6478ec3c",
+      "name": "Stage 2 - Review"
+    },
+    {
+      "parameters": {
+        "model": "openrouter/auto",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        -32
+      ],
+      "id": "d8c2f03a-074c-427e-8536-7ca9b4ad5ef8",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ir35M2aJNigg8CXd",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openrouter/auto",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        144
+      ],
+      "id": "24a8d651-8512-43cc-bace-2d9cec2cb4cd",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ir35M2aJNigg8CXd",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openrouter/auto",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -32
+      ],
+      "id": "74d4357b-93a8-44d9-b967-dbc09e6e99f2",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ir35M2aJNigg8CXd",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Stage 1 - Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage 1 - Summarize": {
+      "main": [
+        [
+          {
+            "node": "Wait - Human in Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait - Human in Loop": {
+      "main": [
+        [
+          {
+            "node": "Stage 2 - Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage 2 - Review": {
+      "main": [
+        [
+          {
+            "node": "Stage 3 - Final Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Stage 1 - Summarize",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Stage 2 - Review",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Stage 3 - Final Report",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "15c5934f-d5e9-4811-81a9-ef808f9ae261",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b8f3f5e18f8f9471f81b9549bc420e425ca715f2188e19c22bdd5c303f278e5c"
+  },
+  "nodeGroups": [],
+  "id": "xllXcavUv7VxmS2N",
+  "tags": []
+}
